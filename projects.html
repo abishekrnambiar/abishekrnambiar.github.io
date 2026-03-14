@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projects — Abishek R Nambiar</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      --bg-0: #050505;
+      --line: rgba(255, 255, 255, 0.14);
+      --text: #f5f5f5;
+      --text-muted: #c2c2c2;
+      --text-soft: #8d8d8d;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; scrollbar-gutter: stable; }
+
+    body {
+      font-family: 'Manrope', 'Segoe UI', sans-serif;
+      background: var(--bg-0);
+      color: var(--text);
+      overflow-x: hidden;
+      opacity: 0;
+      transition: opacity 0.45s var(--ease);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body.loaded { opacity: 1; }
+
+    /* ── Background ── */
+    .gradient-background {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(1100px 500px at 20% -10%, rgba(255,255,255,0.08), transparent 62%),
+        radial-gradient(700px 500px at 85% 110%, rgba(255,255,255,0.05), transparent 60%);
+    }
+
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-size: 44px 44px;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.035) 1px, transparent 1px);
+      mask-image: radial-gradient(circle at center, #000 35%, transparent 100%);
+    }
+
+    .noise-overlay {
+      position: absolute;
+      inset: 0;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    header {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      z-index: 10001;
+      background: linear-gradient(to bottom, rgba(5, 5, 5, 0.88), rgba(5, 5, 5, 0.62));
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom-left-radius: 24px;
+      border-bottom-right-radius: 24px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow:
+        0 8px 22px rgba(0, 0, 0, 0.24),
+        0 14px 28px rgba(0, 0, 0, 0.18),
+        0 1px 0 rgba(255, 255, 255, 0.02) inset;
+      overflow: hidden;
+    }
+
+    #scrollProgress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      width: 100%;
+      z-index: 99999;
+      background: linear-gradient(to right, rgba(244, 244, 244, 0.86), rgba(214, 214, 214, 0.4));
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.18);
+      opacity: 0.9;
+      transform: scaleX(0);
+      transform-origin: left center;
+      will-change: transform;
+      transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+    }
+
+    nav {
+      max-width: 1360px;
+      width: 100%;
+      margin: auto;
+      padding: 16px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      animation: fadeUpSoft 0.55s var(--ease) 0.06s both;
+    }
+
+    .logo {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #f8f8f8;
+      display: flex;
+      align-items: center;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+      flex-wrap: wrap;
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      border: none;
+    }
+
+    nav a {
+      color: rgba(231, 231, 231, 0.75);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 15px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      transition: color 0.22s var(--ease), background 0.22s var(--ease);
+      position: relative;
+    }
+
+    nav a:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    nav a.active {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.11);
+      font-weight: 600;
+    }
+
+    /* ── Page header ── */
+    .page-header {
+      max-width: 1200px;
+      margin: auto;
+      padding: 124px 24px 48px;
+      animation: fadeUpSoft 0.55s var(--ease) 0.1s both;
+    }
+
+    @keyframes fadeUpSoft {
+      0% { opacity: 0; transform: translate3d(0, 14px, 0); }
+      100% { opacity: 1; transform: translate3d(0, 0, 0); }
+    }
+
+    .page-header h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 14px;
+    }
+
+    .page-header p {
+      color: var(--text-muted);
+      font-size: 1.02rem;
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    /* ── Filter bar ── */
+    .filter-bar {
+      max-width: 1200px;
+      margin: auto;
+      padding: 0 24px 40px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      animation: fadeUpSoft 0.55s var(--ease) 0.2s both;
+    }
+
+    .filter-btn {
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: transparent;
+      color: rgba(231,231,231,0.7);
+      font-family: 'Manrope', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: all 0.22s var(--ease);
+    }
+
+    .filter-btn:hover {
+      color: #fff;
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .filter-btn.active {
+      color: #0a0a0a;
+      background: #ffffff;
+      border-color: #ffffff;
+    }
+
+    /* ── Grid ── */
+    .projects-grid {
+      max-width: 1200px;
+      margin: auto;
+      padding: 0 24px 120px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 22px;
+    }
+
+    /* ── Card ── */
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      padding: 30px;
+      border-radius: 18px;
+      background: linear-gradient(170deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.8s var(--ease), box-shadow 0.8s var(--ease), border-color 0.8s var(--ease);
+      opacity: 0;
+      transform: translate3d(0, 18px, 0) scale(0.985);
+      transition: opacity 0.5s var(--ease), transform 0.5s var(--ease),
+                  box-shadow 0.8s var(--ease), border-color 0.8s var(--ease);
+    }
+
+    .project-card.in-view {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    .project-card::before {
+      content: "";
+      position: absolute;
+      width: 140%; height: 140%;
+      top: -20%; left: -20%;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.12) 0%, transparent 45%);
+      filter: blur(35px);
+      opacity: 0;
+      transition: opacity 0.8s var(--ease);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .project-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(125deg, transparent, rgba(255,255,255,0.11), transparent);
+      opacity: 0;
+      transition: opacity 0.55s var(--ease);
+      z-index: 1;
+    }
+
+    .project-card:hover {
+      transform: translateY(-14px) scale(1.03);
+      border-color: rgba(255,255,255,0.45);
+      box-shadow: 0 28px 56px rgba(0,0,0,0.6), 0 0 28px rgba(255,255,255,0.12);
+    }
+
+    .project-card:hover::before {
+      opacity: 1;
+      animation: glowMove 6s infinite alternate ease-in-out;
+    }
+
+    .project-card:hover::after { opacity: 1; }
+
+    @keyframes glowMove {
+      0%   { transform: translate(-20%, -20%) rotate(0deg); }
+      50%  { transform: translate(10%, 15%) rotate(180deg); }
+      100% { transform: translate(-15%, -5%) rotate(360deg); }
+    }
+
+    .project-card.hidden { display: none; }
+
+    /* card internals above pseudo-elements */
+    .card-icon, .project-category, .card-title, .card-desc, .card-stack, .card-footer {
+      position: relative;
+      z-index: 2;
+    }
+
+    .card-icon {
+      width: 48px; height: 48px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.9);
+      transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), background 0.3s var(--ease);
+    }
+
+    .project-card:hover .card-icon {
+      transform: scale(1.1) rotate(5deg);
+      border-color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.08);
+      box-shadow: 0 0 15px rgba(255,255,255,0.1);
+    }
+
+    .card-icon svg { width: 22px; height: 22px; stroke-width: 2; }
+
+    .project-category {
+      align-self: flex-start;
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.08);
+      padding: 5px 12px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255,255,255,0.15);
+      backdrop-filter: blur(4px);
+    }
+
+    .project-category::before {
+      content: "";
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      margin-right: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.82);
+      vertical-align: middle;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+    }
+
+    .card-desc {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .card-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 22px;
+    }
+
+    .card-stack span {
+      font-size: 11px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: #d4d4d4;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .card-source {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: color 0.2s var(--ease);
+      min-height: 20px;
+    }
+
+    .card-source:hover { color: #fff; }
+    .card-source svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      stroke-width: 1.8;
+    }
+
+    /* ── Empty state ── */
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--text-soft);
+      display: none;
+    }
+
+    .empty-state.show { display: block; }
+
+    /* ── Modal ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s var(--ease);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.active { opacity: 1; pointer-events: auto; }
+
+    .modal {
+      position: relative;
+      width: min(880px, 100%);
+      background: linear-gradient(165deg, rgba(20,20,20,0.9), rgba(10,10,10,0.95));
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 28px;
+      overflow-y: auto;
+      max-height: 90vh;
+      padding: 36px 40px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.45s var(--ease);
+      color: #f9fafb;
+    }
+
+    .modal-overlay.active .modal { transform: scale(1) translateY(0); }
+
+    .modal-close {
+      position: absolute;
+      top: 24px; right: 24px;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 24px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.3s var(--ease), transform 0.3s var(--ease);
+    }
+
+    .modal-close:hover { background: rgba(255,255,255,0.12); transform: rotate(90deg); }
+
+    .modal-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+
+    .modal-tag {
+      font-size: 11px;
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.1);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .modal h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 28px;
+    }
+
+    .modal-desc {
+      color: var(--text-muted);
+      line-height: 1.72;
+      margin-bottom: 20px;
+      font-size: 0.97rem;
+    }
+
+    .modal-highlights h4 {
+      font-size: 12px;
+      text-transform: uppercase;
+      color: #fff;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+      border-left: 2px solid #fff;
+      padding-left: 11px;
+    }
+
+    .modal-highlights ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+
+    .modal-highlights li {
+      position: relative;
+      padding-left: 22px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      font-size: 0.9rem;
+    }
+
+    .modal-highlights li::before { content: "→"; position: absolute; left: 0; color: #fff; opacity: 0.6; }
+
+    .modal-info-box {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    .modal-info-item { margin-bottom: 14px; }
+    .modal-info-item:last-child { margin-bottom: 0; }
+
+    .modal-info-label {
+      display: block;
+      font-size: 11px;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    .modal-info-value { color: #fff; font-weight: 600; font-size: 0.93rem; }
+
+    .modal-source-btn {
+      width: 100%;
+      padding: 12px 0;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      background: #fff;
+      color: #000;
+      border: none;
+      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    }
+
+    .modal-source-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(255,255,255,0.2);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 1ms !important;
+        transition-duration: 1ms !important;
+      }
+    }
+    footer {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-soft, #8d8d8d);
+      font-size: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.32);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 13px;
+      transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .footer-link:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: rgba(255, 255, 255, 0.28);
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .footer-link svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+    }
+
+    .footer-divider {
+      width: 1px;
+      height: 16px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="scrollProgress" aria-hidden="true"></div>
+  <div class="gradient-background">
+    <div class="grid-overlay"></div>
+    <div class="noise-overlay"></div>
+  </div>
+  <header>
+    <nav>
+      <div class="logo">Abishek R Nambiar</div>
+
+      <ul id="navMenu" aria-hidden="true">
+        
+        <li><a href="index.html#projects">Go Back</a></li>
+      
+      </ul>
+    </nav>
+  </header>
+  <div class="page-header">
+    <h1>All Projects</h1>
+    <p>A complete archive of things I've built — from backend systems and automation tools to local utilities.</p>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="Full-Stack Development">Full-Stack</button>
+    <button class="filter-btn" data-filter="Automation">Automation</button>
+    <button class="filter-btn" data-filter="Frontend Development">Frontend</button>
+    <button class="filter-btn" data-filter="Database Management">Database</button>
+    <button class="filter-btn" data-filter="Tool">Tool</button>
+  </div>
+
+  <div class="projects-grid" id="projectsGrid">
+
+    <div class="project-card" data-category="Full-Stack Development" data-key="Secure Digital Election System">
+      <div class="card-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" /><polyline points="16 11 18 13 22 9" />
+        </svg>
+      </div>
+      <span class="project-category">Full-Stack Development</span>
+      <h3 class="card-title">Secure Digital Election System</h3>
+      <p class="card-desc">A robust booth-level election management platform with multi-role workflows, JWT auth, and audit log exports.</p>
+      <div class="card-stack">
+        <span>FastAPI</span><span>PostgreSQL</span><span>Python</span><span>JWT</span>
+      </div>
+      <div class="card-footer">
+        <a href="#" class="card-source" aria-label="Source unavailable">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+
+    <div class="project-card" data-category="Tool" data-key="Precision Trade Ledger">
+      <div class="card-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <line x1="18" y1="20" x2="18" y2="10" stroke-linecap="round"/>
+          <line x1="12" y1="20" x2="12" y2="4" stroke-linecap="round"/>
+          <line x1="6" y1="20" x2="6" y2="14" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="project-category">Tool</span>
+      <h3 class="card-title">Precision Trade Ledger</h3>
+      <p class="card-desc">A browser-based trading journal with calendar P/L view, lifetime stats, date-range filtering, and CSV/PDF export.</p>
+      <div class="card-stack">
+        <span>Python</span><span>JavaScript</span><span>HTML/CSS</span><span>CSV</span>
+      </div>
+      <div class="card-footer">
+        <a href="https://github.com/abishekrnambiar/precision-trade-ledger" target="_blank" rel="noopener noreferrer" class="card-source">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+
+    <div class="project-card" data-category="Automation" data-key="Automated News & Alert Router">
+      <div class="card-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          <path d="M8 9h.01"/><path d="M12 9h.01"/><path d="M16 9h.01"/>
+        </svg>
+      </div>
+      <span class="project-category">Automation</span>
+      <h3 class="card-title">Automated News & Alert Router</h3>
+      <p class="card-desc">A modular Python automation engine for real-time Telegram message routing with regex-based filtering and async processing.</p>
+      <div class="card-stack">
+        <span>Python</span><span>Telethon</span><span>AsyncIO</span><span>Regex</span>
+      </div>
+      <div class="card-footer">
+        <a href="https://github.com/abishekrnambiar/Automated-News-Alert-Router" target="_blank" rel="noopener noreferrer" class="card-source">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+
+    <div class="project-card" data-category="Frontend Development" data-key="Personal Portfolio">
+      <div class="card-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+      </div>
+      <span class="project-category">Frontend Development</span>
+      <h3 class="card-title">Personal Portfolio</h3>
+      <p class="card-desc">A dark glass-morphism portfolio site built with vanilla HTML, CSS, and JavaScript — no frameworks, no build tools.</p>
+      <div class="card-stack">
+        <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Figma</span>
+      </div>
+      <div class="card-footer">
+        <a href="https://github.com/abishekrnambiar/abishek-portfolio" target="_blank" rel="noopener noreferrer" class="card-source">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+
+    <div class="project-card" data-category="Database Management" data-key="Smart School Gradebook">
+      <div class="card-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+      </div>
+      <span class="project-category">Database Management</span>
+      <h3 class="card-title">Smart School Gradebook</h3>
+      <p class="card-desc">A 3NF normalized school grading system with MySQL triggers, stored procedures, and sub-second mark retrieval.</p>
+      <div class="card-stack">
+        <span>Python</span><span>Flask</span><span>MySQL</span><span>SQLAlchemy</span>
+      </div>
+      <div class="card-footer">
+        <a href="https://github.com/abishekrnambiar/Smart_School_Gradebook" target="_blank" rel="noopener noreferrer" class="card-source">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+
+    <div class="empty-state" id="emptyState">No projects match this filter.</div>
+
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <div class="modal-tags" id="modalTags"></div>
+      <h2 id="modalTitle"></h2>
+      <div class="modal-grid">
+        <div>
+          <p class="modal-desc" id="modalDesc"></p>
+          <div class="modal-highlights">
+            <h4>Key Highlights</h4>
+            <ul id="modalHighlights"></ul>
+          </div>
+        </div>
+        <div>
+          <div class="modal-info-box">
+            <div class="modal-info-item">
+              <span class="modal-info-label">Tech Stack</span>
+              <span class="modal-info-value" id="modalStack"></span>
+            </div>
+            <div class="modal-info-item">
+              <span class="modal-info-label">Challenge</span>
+              <span class="modal-info-value" id="modalChallenge"></span>
+            </div>
+            <div class="modal-info-item">
+              <span class="modal-info-label">Use Case</span>
+              <span class="modal-info-value" id="modalUseCase"></span>
+            </div>
+          </div>
+          <button class="modal-source-btn" id="modalSourceBtn">View Source Code</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('load', () => document.body.classList.add('loaded'));
+
+    const projectData = {
+      "Secure Digital Election System": {
+        tags: ["FastAPI", "Security", "Full-Stack Development"],
+        desc: "A comprehensive booth-level election management system. Features voter registration, BLO approval workflows, polling day operations, and conflict resolution mechanisms.",
+        highlights: [
+          "Multi-role hierarchy (Voter, BLO, Polling Officer, Presiding Officer) with secure JWT auth.",
+          "Voter verification workflows with profile photo support and real-time status tracking.",
+          "Conflict escalation and resolution logic for presiding officers.",
+          "Admin engine for managing booths, feature flags, and exporting encrypted audit logs."
+        ],
+        stack: "FastAPI, PostgreSQL, SQLAlchemy, JWT",
+        challenge: "State-managed Workflow Integrity",
+        useCase: "Government & Institutional Elections",
+        sourceUrl: "#"
+      },
+      "Automated News & Alert Router": {
+        tags: ["Python", "Automation", "Real-time Alerts"],
+        desc: "A professional-grade automation engine built with Telethon that routes messages between channels, groups, and bots with advanced regex filtering and asynchronous processing.",
+        highlights: [
+          "Supports all Telegram entities including private channels and bots via Chat IDs.",
+          "Intelligent regex keyword matching for precise content filtering.",
+          "Async core for low-latency, real-time message handling.",
+          "Modular design allowing easy integration of custom routing and mirroring logic."
+        ],
+        stack: "Python, Telethon, AsyncIO, Regex",
+        challenge: "Real-time sync & session persistence",
+        useCase: "Content Aggregation & Alert Monitoring",
+        sourceUrl: "https://github.com/abishekrnambiar/Automated-News-Alert-Router"
+      },
+      "Personal Portfolio": {
+        tags: ["HTML5", "CSS3", "JavaScript", "Frontend Development"],
+        desc: "A personal portfolio website built entirely with vanilla HTML, CSS, and JavaScript — no frameworks, no build tools, no dependencies. Features a dark glass-morphism aesthetic with GPU-accelerated animations throughout.",
+        highlights: [
+          "Typing hero animation with interactive draggable timeline dots connected by SVG curves.",
+          "Pixel-perfect JS requestAnimationFrame marquee for certifications — no CSS keyframe stutter.",
+          "Project cards with modal detail overlays and scroll-triggered entrance animations.",
+          "Scroll-linked background transitions, parallax hero panel, and mouse-trail particle system.",
+          "Fully accessible — keyboard navigable modals, focus states, and reduced motion support."
+        ],
+        stack: "HTML5, CSS3, Vanilla JavaScript, Figma",
+        challenge: "Rich interactivity without any framework or build step",
+        useCase: "Personal branding and developer showcase",
+        sourceUrl: "https://github.com/abishekrnambiar/abishekrnambiar.github.io"
+      },
+      "Smart School Gradebook": {
+        tags: ["DBMS", "MySQL", "Database Management"],
+        desc: "A core database management project focused on architecting a secure and normalized school grading system with high-performance SQL querying.",
+        highlights: [
+          "3NF normalized schema to eliminate data redundancy.",
+          "Complex MySQL triggers and stored procedures for grade automation.",
+          "Optimized relational queries for sub-second mark retrieval.",
+          "Role-based access for teachers and students."
+        ],
+        stack: "MySQL, Python, Flask, SQLAlchemy",
+        challenge: "Data Normalization & Integrity",
+        useCase: "Academic Data Management",
+        sourceUrl: "https://github.com/abishekrnambiar/Smart_School_Gradebook"
+      },
+      "Precision Trade Ledger": {
+        tags: ["Python", "JavaScript", "Tool"],
+        desc: "A compact browser-based trading journal for traders who want a fast local workflow without a database. Combines a calendar dashboard, yearly review, and an export center.",
+        highlights: [
+          "Calendar view with day-level P/L visibility and month/year navigation.",
+          "Monthly summary cards and lifetime performance metrics snapshot.",
+          "Full CRUD trade entries via lightweight Python http.server JSON API.",
+          "Export center with date-range filtering, CSV download, and print-to-PDF.",
+          "Zero-infrastructure persistence via flat CSV — no database required."
+        ],
+        stack: "Python, JavaScript, HTML/CSS, CSV Storage",
+        challenge: "Stateful UI without a database",
+        useCase: "Local journal for discretionary and systematic traders",
+        sourceUrl: "https://github.com/abishekrnambiar/precision-trade-ledger"
+      }
+    };
+
+    // Filter logic
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.project-card');
+    const emptyState = document.getElementById('emptyState');
+    const scrollProgress = document.getElementById('scrollProgress');
+    let progressFrame = null;
+
+    function renderScrollProgress() {
+      if (!scrollProgress) return;
+      const doc = document.documentElement;
+      const scrollable = Math.max(doc.scrollHeight - window.innerHeight, 0);
+      const ratio = scrollable > 0 ? Math.min(window.scrollY / scrollable, 1) : 0;
+      scrollProgress.style.transform = `scaleX(${ratio})`;
+      progressFrame = null;
+    }
+
+    function syncScrollProgress() {
+      if (progressFrame !== null) return;
+      progressFrame = requestAnimationFrame(renderScrollProgress);
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        let visible = 0;
+        cards.forEach(card => {
+          const match = filter === 'all' || card.dataset.category === filter;
+          card.classList.toggle('hidden', !match);
+          if (match) visible++;
+        });
+        emptyState.classList.toggle('show', visible === 0);
+      });
+    });
+
+    // Scroll reveal
+    const fxObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in-view');
+          fxObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    cards.forEach(c => fxObserver.observe(c));
+
+    // Modal
+    const overlay = document.getElementById('modalOverlay');
+    const modalClose = document.getElementById('modalClose');
+
+    function openModal(key) {
+      const d = projectData[key];
+      if (!d) return;
+
+      document.getElementById('modalTitle').textContent = key;
+      document.getElementById('modalDesc').textContent = d.desc;
+      document.getElementById('modalStack').textContent = d.stack;
+      document.getElementById('modalChallenge').textContent = d.challenge;
+      document.getElementById('modalUseCase').textContent = d.useCase;
+
+      const tagsEl = document.getElementById('modalTags');
+      tagsEl.innerHTML = '';
+      d.tags.forEach(t => {
+        const s = document.createElement('span');
+        s.className = 'modal-tag';
+        s.textContent = t;
+        tagsEl.appendChild(s);
+      });
+
+      const hlEl = document.getElementById('modalHighlights');
+      hlEl.innerHTML = '';
+      d.highlights.forEach(h => {
+        const li = document.createElement('li');
+        li.textContent = h;
+        hlEl.appendChild(li);
+      });
+
+      document.getElementById('modalSourceBtn').onclick = () => window.open(d.sourceUrl, '_blank');
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => openModal(card.dataset.key));
+    });
+
+    document.querySelectorAll('.card-source').forEach(link => {
+      link.addEventListener('click', (event) => {
+        event.stopPropagation();
+      });
+    });
+
+    modalClose.addEventListener('click', closeModal);
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+    syncScrollProgress();
+    window.addEventListener('scroll', syncScrollProgress, { passive: true });
+    window.addEventListener('resize', syncScrollProgress);
+    window.addEventListener('load', syncScrollProgress);
+  </script>
+  <footer>
+    <div class="footer-links">
+      <a href="mailto:abishekrnambiar@gmail.com" class="footer-link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+        </svg>
+        abishekrnambiar@gmail.com
+      </a>
+      <div class="footer-divider"></div>
+      <a href="https://linkedin.com/in/abishekrnambiar" target="_blank" rel="noopener noreferrer" class="footer-link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>
+        </svg>
+        LinkedIn
+      </a>
+      <div class="footer-divider"></div>
+      <a href="https://github.com/abishekrnambiar" target="_blank" rel="noopener noreferrer" class="footer-link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/>
+        </svg>
+        GitHub
+      </a>
+    </div>
+    <p>&copy; 2026 Abishek R Nambiar</p>
+  </footer>
+
+</body>
+</html>
