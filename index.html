@@ -1298,6 +1298,16 @@
       box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
     }
 
+    .primary-modal-btn.source-unavailable,
+    .primary-modal-btn.source-unavailable:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.5);
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+      opacity: 0.7;
+    }
+
     .secondary-modal-btn {
       background: transparent;
       color: #fff;
@@ -1395,6 +1405,75 @@
       50% { opacity: 1; }
     }
 
+    /* ── Mobile ───────────────────────────────────────────────────────────── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.22s var(--ease);
+    }
+    .hamburger span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: #f5f5f5;
+      margin: 0 auto;
+      transition: transform 0.25s var(--ease), opacity 0.25s var(--ease);
+    }
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      nav ul {
+        position: fixed;
+        top: 72px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: linear-gradient(to bottom, rgba(5, 5, 5, 0.98), rgba(5, 5, 5, 0.92));
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 16px;
+        gap: 4px;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.35s var(--ease), opacity 0.3s var(--ease);
+      }
+      nav ul.open {
+        max-height: 320px;
+        opacity: 1;
+      }
+      nav a { display: block; padding: 12px 16px; border-radius: 12px; }
+
+      .hero-timeline { display: none !important; }
+      .hero-panel {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        padding: 24px 16px !important;
+      }
+      .hero { padding: 88px 16px 0; }
+      section { padding: 40px 16px 60px; min-height: auto; }
+      .project-modal, .timeline-popup { padding: 24px 20px; }
+      .modal-grid { grid-template-columns: 1fr; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 1ms !important;
@@ -1439,8 +1518,11 @@
 
   <header>
     <nav>
-      <div class="logo">Abishek R Nambiar</div>
+      <a href="index.html#home" class="logo">Abishek R Nambiar</a>
 
+      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false" type="button">
+        <span></span><span></span><span></span>
+      </button>
       <ul id="navMenu" aria-hidden="true">
         <li><a href="#home" data-section="home">Home</a></li>
         <li><a href="#projects" data-section="projects">Projects</a></li>
@@ -1854,6 +1936,24 @@
       });
 
       setActive('home');
+    })();
+
+    (function () {
+      const hamburgerBtn = document.getElementById('hamburgerBtn');
+      const navMenu = document.getElementById('navMenu');
+      if (!hamburgerBtn || !navMenu) return;
+      hamburgerBtn.addEventListener('click', () => {
+        hamburgerBtn.classList.toggle('open');
+        navMenu.classList.toggle('open');
+        hamburgerBtn.setAttribute('aria-expanded', navMenu.classList.contains('open'));
+      });
+      navMenu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          hamburgerBtn.classList.remove('open');
+          navMenu.classList.remove('open');
+          hamburgerBtn.setAttribute('aria-expanded', 'false');
+        });
+      });
     })();
 
     (function () {
@@ -2297,7 +2397,17 @@
         highlightsContainer.appendChild(li);
       });
 
-      modalSourceBtn.onclick = () => window.open(data.sourceUrl, '_blank');
+      if (id === 'Secure Digital Election System') {
+        modalSourceBtn.classList.add('source-unavailable');
+        modalSourceBtn.disabled = true;
+        modalSourceBtn.setAttribute('aria-disabled', 'true');
+        modalSourceBtn.onclick = (e) => e.preventDefault();
+      } else {
+        modalSourceBtn.classList.remove('source-unavailable');
+        modalSourceBtn.disabled = false;
+        modalSourceBtn.removeAttribute('aria-disabled');
+        modalSourceBtn.onclick = () => window.open(data.sourceUrl, '_blank');
+      }
       modalOverlay.classList.add('active');
       toggleScrollLock(true);
     }
