@@ -406,6 +406,28 @@
       stroke-width: 1.8;
     }
 
+    .card-open-modal {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+      transition: color 0.2s var(--ease);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: inherit;
+    }
+
+    .card-open-modal:hover { color: #fff; }
+    .card-open-modal svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      stroke-width: 2;
+    }
+
     /* ── Empty state ── */
     .empty-state {
       grid-column: 1 / -1;
@@ -563,6 +585,28 @@
       box-shadow: 0 10px 25px rgba(255,255,255,0.2);
     }
 
+    .modal-source-btn.source-unavailable,
+    .modal-source-btn.source-unavailable:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.5);
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 768px) {
+      .page-header { padding: 100px 16px 32px; }
+      .filter-bar { padding: 0 16px 32px; }
+      .projects-grid {
+        grid-template-columns: 1fr;
+        padding: 0 16px 80px;
+        gap: 18px;
+      }
+      .modal { padding: 24px 20px; }
+      .modal-grid { grid-template-columns: 1fr; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 1ms !important;
@@ -635,12 +679,10 @@
   </div>
   <header>
     <nav>
-      <div class="logo">Abishek R Nambiar</div>
+      <a href="index.html" class="logo">Abishek R Nambiar</a>
 
       <ul id="navMenu" aria-hidden="true">
-        
         <li><a href="index.html#projects">Go Back</a></li>
-      
       </ul>
     </nav>
   </header>
@@ -674,10 +716,10 @@
         <span>FastAPI</span><span>PostgreSQL</span><span>Python</span><span>JWT</span>
       </div>
       <div class="card-footer">
-        <a href="#" class="card-source" aria-label="Source unavailable">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-          GitHub
-        </a>
+        <span class="card-open-modal" aria-label="Open project details">
+          <span>View details</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </span>
       </div>
     </div>
 
@@ -696,10 +738,10 @@
         <span>Python</span><span>JavaScript</span><span>HTML/CSS</span><span>CSV</span>
       </div>
       <div class="card-footer">
-        <a href="https://github.com/abishekrnambiar/precision-trade-ledger" target="_blank" rel="noopener noreferrer" class="card-source">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-          GitHub
-        </a>
+        <span class="card-open-modal" aria-label="Open project details">
+          <span>View details</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </span>
       </div>
     </div>
 
@@ -717,10 +759,10 @@
         <span>Python</span><span>Telethon</span><span>AsyncIO</span><span>Regex</span>
       </div>
       <div class="card-footer">
-        <a href="https://github.com/abishekrnambiar/Automated-News-Alert-Router" target="_blank" rel="noopener noreferrer" class="card-source">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-          GitHub
-        </a>
+        <span class="card-open-modal" aria-label="Open project details">
+          <span>View details</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </span>
       </div>
     </div>
 
@@ -737,10 +779,10 @@
         <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Figma</span>
       </div>
       <div class="card-footer">
-        <a href="https://github.com/abishekrnambiar/abishek-portfolio" target="_blank" rel="noopener noreferrer" class="card-source">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-          GitHub
-        </a>
+        <span class="card-open-modal" aria-label="Open project details">
+          <span>View details</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </span>
       </div>
     </div>
 
@@ -758,10 +800,10 @@
         <span>Python</span><span>Flask</span><span>MySQL</span><span>SQLAlchemy</span>
       </div>
       <div class="card-footer">
-        <a href="https://github.com/abishekrnambiar/Smart_School_Gradebook" target="_blank" rel="noopener noreferrer" class="card-source">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-          GitHub
-        </a>
+        <span class="card-open-modal" aria-label="Open project details">
+          <span>View details</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </span>
       </div>
     </div>
 
@@ -961,7 +1003,18 @@
         hlEl.appendChild(li);
       });
 
-      document.getElementById('modalSourceBtn').onclick = () => window.open(d.sourceUrl, '_blank');
+      const sourceBtn = document.getElementById('modalSourceBtn');
+      if (key === 'Secure Digital Election System') {
+        sourceBtn.classList.add('source-unavailable');
+        sourceBtn.disabled = true;
+        sourceBtn.setAttribute('aria-disabled', 'true');
+        sourceBtn.onclick = (e) => e.preventDefault();
+      } else {
+        sourceBtn.classList.remove('source-unavailable');
+        sourceBtn.disabled = false;
+        sourceBtn.removeAttribute('aria-disabled');
+        sourceBtn.onclick = () => window.open(d.sourceUrl, '_blank');
+      }
       overlay.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
@@ -973,12 +1026,6 @@
 
     cards.forEach(card => {
       card.addEventListener('click', () => openModal(card.dataset.key));
-    });
-
-    document.querySelectorAll('.card-source').forEach(link => {
-      link.addEventListener('click', (event) => {
-        event.stopPropagation();
-      });
     });
 
     modalClose.addEventListener('click', closeModal);
