@@ -582,6 +582,23 @@
       border: 1px solid rgba(255, 255, 255, 0.12);
     }
 
+    @media (max-width: 768px) {
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+      .skill-card {
+        grid-template-columns: 1fr;
+        padding: 16px;
+      }
+      .skill-card h3 {
+        font-size: 12px;
+      }
+      .skill-list li {
+        font-size: 11px;
+        padding: 6px 8px;
+      }
+    }
+
     .skill-card {
       position: relative;
       display: grid;
@@ -670,6 +687,7 @@
       background: rgba(255, 255, 255, 0.06);
     }
 
+    /* ── Certifications ──────────────────────────────────────────────── */
     #certifications {
       max-width: 1320px;
       min-height: 100vh;
@@ -705,6 +723,7 @@
       -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
     }
 
+    /* ── Marquee: animation driven by JS requestAnimationFrame for pixel-perfect looping ── */
     .cert-track {
       display: flex;
       flex-direction: column;
@@ -713,7 +732,18 @@
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
     }
-    
+    /* No CSS keyframes — JS measures exact set height and animates by pixels, not % */
+    /* ─────────────────────────────────────────────────────────────────── */
+
+    /* ── Industry-standard cert card logo display ──────────────────────
+       Rules applied:
+       1. Fixed card height — equal visual footprint for every logo
+       2. A defined inner "safe zone" via padding — clear space respected
+       3. max-height + max-width with object-fit:contain — no distortion
+       4. Grayscale + reduced opacity at rest — neutral, non-distracting
+       5. Full colour + full opacity + subtle lift on hover — rewarding
+       6. No arbitrary per-logo scale hacks — uniform optical treatment
+    ─────────────────────────────────────────────────────────────────── */
     .cert-card {
       width: 100%;
       min-height: 140px;
@@ -738,6 +768,7 @@
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
     }
 
+    /* Unified logo sizing — optical balance, not pixel equality */
     .cert-card img {
       display: block;
       width: 140px;
@@ -754,6 +785,7 @@
       transform: scale(1.05);
     }
 
+    /* Helsinki — SVG + text lockup, needs more width */
     .cert-logo {
       display: flex;
       align-items: center;
@@ -787,16 +819,19 @@
       transform: scale(1.04);
     }
 
+    /* IBM — slightly smaller, its mark is optically heavy */
     .cert-card[aria-label="IBM"] img {
       width: 100px;
       height: 38px;
     }
 
+    /* HP — circular mark, needs square room to breathe */
     .cert-card[aria-label="HP"] img {
       width: 68px;
       height: 68px;
     }
 
+    /* NASA — circular with internal SVG padding, needs more space */
     .cert-card[aria-label="NASA"] img {
       width: 88px;
       height: 88px;
@@ -1523,15 +1558,15 @@
       </svg>
 
       <div class="timeline-dot dot-2017" data-year="2017" role="button" tabindex="0"
-        aria-label="Open timeline details for year 2017"><span>12</span></div>
+        aria-label="Open timeline details for year 2017"><span>17</span></div>
       <div class="timeline-dot dot-2018" data-year="2018" role="button" tabindex="0"
-        aria-label="Open timeline details for year 2018"><span>13</span></div>
+        aria-label="Open timeline details for year 2018"><span>18</span></div>
       <div class="timeline-dot dot-2020" data-year="2020" role="button" tabindex="0"
-        aria-label="Open timeline details for year 2020"><span>15</span></div>
+        aria-label="Open timeline details for year 2020"><span>20</span></div>
       <div class="timeline-dot dot-2021" data-year="2021" role="button" tabindex="0"
-        aria-label="Open timeline details for year 2021"><span>16</span></div>
+        aria-label="Open timeline details for year 2021"><span>21</span></div>
       <div class="timeline-dot dot-2023" data-year="2023" role="button" tabindex="0"
-        aria-label="Open timeline details for year 2023"><span>18</span></div>
+        aria-label="Open timeline details for year 2023"><span>23</span></div>
     </div>
 
     <div class="glass hero-panel">
