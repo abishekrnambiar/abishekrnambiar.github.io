@@ -32,7 +32,6 @@
 
     body.loaded { opacity: 1; }
 
-    /* ── Background ── */
     .gradient-background {
       position: fixed;
       inset: 0;
@@ -150,7 +149,6 @@
       font-weight: 600;
     }
 
-    /* ── Page header ── */
     .page-header {
       max-width: 1200px;
       margin: auto;
@@ -177,7 +175,6 @@
       max-width: 560px;
     }
 
-    /* ── Filter bar ── */
     .filter-bar {
       max-width: 1200px;
       margin: auto;
@@ -214,7 +211,6 @@
       border-color: #ffffff;
     }
 
-    /* ── Grid ── */
     .projects-grid {
       max-width: 1200px;
       margin: auto;
@@ -224,7 +220,6 @@
       gap: 22px;
     }
 
-    /* ── Card ── */
     .project-card {
       display: flex;
       flex-direction: column;
@@ -235,7 +230,6 @@
       position: relative;
       overflow: hidden;
       cursor: pointer;
-      transition: transform 0.8s var(--ease), box-shadow 0.8s var(--ease), border-color 0.8s var(--ease);
       opacity: 0;
       transform: translate3d(0, 18px, 0) scale(0.985);
       transition: opacity 0.5s var(--ease), transform 0.5s var(--ease),
@@ -291,7 +285,6 @@
 
     .project-card.hidden { display: none; }
 
-    /* card internals above pseudo-elements */
     .card-icon, .project-category, .card-title, .card-desc, .card-stack, .card-footer {
       position: relative;
       z-index: 2;
@@ -386,26 +379,6 @@
       border-top: 1px solid rgba(255,255,255,0.08);
     }
 
-    .card-source {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.6);
-      text-decoration: none;
-      transition: color 0.2s var(--ease);
-      min-height: 20px;
-    }
-
-    .card-source:hover { color: #fff; }
-    .card-source svg {
-      width: 14px;
-      height: 14px;
-      flex-shrink: 0;
-      stroke-width: 1.8;
-    }
-
     .card-open-modal {
       display: inline-flex;
       align-items: center;
@@ -428,7 +401,6 @@
       stroke-width: 2;
     }
 
-    /* ── Empty state ── */
     .empty-state {
       grid-column: 1 / -1;
       text-align: center;
@@ -439,7 +411,6 @@
 
     .empty-state.show { display: block; }
 
-    /* ── Modal ── */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -613,6 +584,7 @@
         transition-duration: 1ms !important;
       }
     }
+
     footer {
       text-align: center;
       padding: 60px 20px;
@@ -657,17 +629,9 @@
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
 
-    .footer-link svg {
-      width: 15px;
-      height: 15px;
-      flex-shrink: 0;
-    }
+    .footer-link svg { width: 15px; height: 15px; flex-shrink: 0; }
 
-    .footer-divider {
-      width: 1px;
-      height: 16px;
-      background: rgba(255, 255, 255, 0.12);
-    }
+    .footer-divider { width: 1px; height: 16px; background: rgba(255, 255, 255, 0.12); }
   </style>
 </head>
 <body>
@@ -677,15 +641,16 @@
     <div class="grid-overlay"></div>
     <div class="noise-overlay"></div>
   </div>
+
   <header>
     <nav>
       <a href="index.html" class="logo">Abishek R Nambiar</a>
-
       <ul id="navMenu" aria-hidden="true">
         <li><a href="index.html#projects">Go Back</a></li>
       </ul>
     </nav>
   </header>
+
   <div class="page-header">
     <h1>All Projects</h1>
     <p>A complete archive of things I've built — from backend systems and automation tools to local utilities.</p>
@@ -702,6 +667,28 @@
 
   <div class="projects-grid" id="projectsGrid">
 
+    <!-- Trading Signal Automation System -->
+    <div class="project-card" data-category="Automation" data-key="Trading Signal Automation System">
+      <div class="card-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <polyline stroke-linecap="round" stroke-linejoin="round" points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+      </div>
+      <span class="project-category">Automation</span>
+      <h3 class="card-title">Trading Signal Automation System</h3>
+      <p class="card-desc">A WebSocket-intercepting Chrome extension that feeds live trading signals into a Python-AHK pipeline with human-behavior simulation for anti-detection execution.</p>
+      <div class="card-stack">
+        <span>Chrome MV3</span><span>Python</span><span>AutoHotkey v2</span><span>WebSocket</span>
+      </div>
+      <div class="card-footer">
+        <span class="card-open-modal" aria-label="Open project details">
+          <span>View details</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <!-- Secure Digital Election System -->
     <div class="project-card" data-category="Full-Stack Development" data-key="Secure Digital Election System">
       <div class="card-icon">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -723,6 +710,7 @@
       </div>
     </div>
 
+    <!-- Precision Trade Ledger -->
     <div class="project-card" data-category="Tool" data-key="Precision Trade Ledger">
       <div class="card-icon">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -745,6 +733,7 @@
       </div>
     </div>
 
+    <!-- Automated News & Alert Router -->
     <div class="project-card" data-category="Automation" data-key="Automated News & Alert Router">
       <div class="card-icon">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -766,6 +755,7 @@
       </div>
     </div>
 
+    <!-- Personal Portfolio -->
     <div class="project-card" data-category="Frontend Development" data-key="Personal Portfolio">
       <div class="card-icon">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -786,6 +776,7 @@
       </div>
     </div>
 
+    <!-- Smart School Gradebook -->
     <div class="project-card" data-category="Database Management" data-key="Smart School Gradebook">
       <div class="card-icon">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -850,6 +841,20 @@
     window.addEventListener('load', () => document.body.classList.add('loaded'));
 
     const projectData = {
+      "Trading Signal Automation System": {
+        tags: ["Chrome Extension", "Automation", "WebSocket"],
+        desc: "A fully event-driven trading automation pipeline. A Chrome Extension (MV3) intercepts live WebSocket frames from a charting platform before DOM render and POSTs signal payloads to a local Python HTTP server, which instantly triggers AutoHotkey v2 for human-behavior-simulated execution on the trading platform.",
+        highlights: [
+          "Chrome MV3 extension intercepts live WebSocket frames before DOM render — minimum signal latency.",
+          "Event-driven pipeline: extension → Python HTTP server → AHK execution — no polling, zero idle lag.",
+          "AHK v2 randomizes input timing and action sequences to bypass broker bot-detection heuristics that ban API-based algo execution.",
+          "Clean JSON contract between browser, Python, and AHK — each layer independently replaceable."
+        ],
+        stack: "Chrome Extension MV3, Python, AutoHotkey v2, WebSocket",
+        challenge: "Human-behavior simulation for anti-detection execution",
+        useCase: "Algorithmic trading automation bypassing broker API restrictions by simulating real user interaction.",
+        sourceUrl: "#"
+      },
       "Secure Digital Election System": {
         tags: ["FastAPI", "Security", "Full-Stack Development"],
         desc: "A comprehensive booth-level election management system. Features voter registration, BLO approval workflows, polling day operations, and conflict resolution mechanisms.",
@@ -924,7 +929,6 @@
       }
     };
 
-    // Filter logic
     const filterBtns = document.querySelectorAll('.filter-btn');
     const cards = document.querySelectorAll('.project-card');
     const emptyState = document.getElementById('emptyState');
@@ -960,7 +964,6 @@
       });
     });
 
-    // Scroll reveal
     const fxObserver = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
@@ -972,7 +975,6 @@
 
     cards.forEach(c => fxObserver.observe(c));
 
-    // Modal
     const overlay = document.getElementById('modalOverlay');
     const modalClose = document.getElementById('modalClose');
 
@@ -1004,7 +1006,8 @@
       });
 
       const sourceBtn = document.getElementById('modalSourceBtn');
-      if (key === 'Secure Digital Election System') {
+      const unavailable = key === 'Secure Digital Election System' || d.sourceUrl === '#';
+      if (unavailable) {
         sourceBtn.classList.add('source-unavailable');
         sourceBtn.disabled = true;
         sourceBtn.setAttribute('aria-disabled', 'true');
@@ -1015,6 +1018,7 @@
         sourceBtn.removeAttribute('aria-disabled');
         sourceBtn.onclick = () => window.open(d.sourceUrl, '_blank');
       }
+
       overlay.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
@@ -1036,6 +1040,7 @@
     window.addEventListener('resize', syncScrollProgress);
     window.addEventListener('load', syncScrollProgress);
   </script>
+
   <footer>
     <div class="footer-links">
       <a href="mailto:abishekrnambiar@gmail.com" class="footer-link">
