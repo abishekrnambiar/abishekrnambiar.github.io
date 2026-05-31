@@ -750,7 +750,6 @@
       -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
     }
 
-    /* ── Marquee: animation driven by JS requestAnimationFrame for pixel-perfect looping ── */
     .cert-track {
       display: flex;
       flex-direction: column;
@@ -759,18 +758,7 @@
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
     }
-    /* No CSS keyframes — JS measures exact set height and animates by pixels, not % */
-    /* ─────────────────────────────────────────────────────────────────── */
 
-    /* ── Industry-standard cert card logo display ──────────────────────
-       Rules applied:
-       1. Fixed card height — equal visual footprint for every logo
-       2. A defined inner "safe zone" via padding — clear space respected
-       3. max-height + max-width with object-fit:contain — no distortion
-       4. Grayscale + reduced opacity at rest — neutral, non-distracting
-       5. Full colour + full opacity + subtle lift on hover — rewarding
-       6. No arbitrary per-logo scale hacks — uniform optical treatment
-    ─────────────────────────────────────────────────────────────────── */
     .cert-card {
       width: 100%;
       min-height: 140px;
@@ -795,7 +783,6 @@
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
     }
 
-    /* Unified logo sizing — optical balance, not pixel equality */
     .cert-card img {
       display: block;
       width: 140px;
@@ -812,7 +799,6 @@
       transform: scale(1.05);
     }
 
-    /* Helsinki — SVG + text lockup, needs more width */
     .cert-logo {
       display: flex;
       align-items: center;
@@ -846,19 +832,16 @@
       transform: scale(1.04);
     }
 
-    /* IBM — slightly smaller, its mark is optically heavy */
     .cert-card[aria-label="IBM"] img {
       width: 100px;
       height: 38px;
     }
 
-    /* HP — circular mark, needs square room to breathe */
     .cert-card[aria-label="HP"] img {
       width: 68px;
       height: 68px;
     }
 
-    /* NASA — circular with internal SVG padding, needs more space */
     .cert-card[aria-label="NASA"] img {
       width: 88px;
       height: 88px;
@@ -1449,7 +1432,6 @@
       50% { opacity: 1; }
     }
 
-    /* ── Mobile ───────────────────────────────────────────────────────────── */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -1661,6 +1643,24 @@
         <div class="project-icon-box">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <span class="project-category">Automation</span>
+        <h3>Trading Signal Automation System</h3>
+        <p>A WebSocket-intercepting Chrome extension that feeds live trading signals into a Python-AHK pipeline with human-behavior simulation for anti-detection execution.</p>
+        <div class="project-stack">
+          <span>Chrome MV3</span>
+          <span>Python</span>
+          <span>AutoHotkey v2</span>
+          <span>WebSocket</span>
+        </div>
+      </div>
+
+      <div class="project-card glass scroll-fx">
+        <div class="project-icon-box">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
             <circle cx="9" cy="7" r="4" />
             <polyline points="16 11 18 13 22 9" />
@@ -1673,24 +1673,6 @@
           <span>FastAPI</span>
           <span>PostgreSQL</span>
           <span>Python</span>
-        </div>
-      </div>
-
-      <div class="project-card glass scroll-fx">
-        <div class="project-icon-box">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-            <path d="M8 9h.01" /><path d="M12 9h.01" /><path d="M16 9h.01" />
-          </svg>
-        </div>
-        <span class="project-category">Automation</span>
-        <h3>Automated News & Alert Router</h3>
-        <p>A modular Python automation script for real-time message routing and regex-based filtering.</p>
-        <div class="project-stack">
-          <span>Python</span>
-          <span>Telethon</span>
-          <span>Automation</span>
         </div>
       </div>
 
@@ -1711,6 +1693,7 @@
           <span>CSV</span>
         </div>
       </div>
+
     </div>
     <div style="text-align:center; margin-top: 36px;">
       <a href="/projects.html" style="display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:999px;border:1px solid rgba(255,255,255,0.22);color:#f3f3f3;text-decoration:none;font-weight:600;font-size:15px;background:transparent;transition:all 0.25s cubic-bezier(0.22,1,0.36,1);" onmouseover="this.style.background='rgba(255,255,255,0.08)';this.style.borderColor='rgba(255,255,255,0.36)'" onmouseout="this.style.background='transparent';this.style.borderColor='rgba(255,255,255,0.22)'">
@@ -1755,7 +1738,7 @@
       </div>
 
       <div class="skill-card glass scroll-fx">
-        <h3>Design & Frontend</h3>
+        <h3>Design &amp; Frontend</h3>
         <ul class="skill-list">
           <li>HTML5</li>
           <li>CSS3</li>
@@ -1771,10 +1754,8 @@
     <div class="certifications-wrapper">
       <div class="cert-marquee">
 
-        
         <div class="cert-lane">
           <div class="cert-track down">
-            <!-- Set 1 -->
             <a href="https://coursera.org/share/f8a70c1cc686863a9edaa71b640e8c03" target="_blank" rel="noopener noreferrer" class="cert-card" aria-label="IBM">
               <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" loading="lazy" decoding="async">
             </a>
@@ -1789,7 +1770,6 @@
             <a href="https://www.life-global.org/certificate/06c93757-24da-41ad-9e65-4583173fe3bb" target="_blank" rel="noopener noreferrer" class="cert-card" aria-label="HP">
               <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/HP_logo_2025.svg" alt="HP" loading="lazy" decoding="async">
             </a>
-            <!-- Set 2 — duplicate for seamless infinite loop -->
             <a href="https://coursera.org/share/f8a70c1cc686863a9edaa71b640e8c03" target="_blank" rel="noopener noreferrer" class="cert-card" aria-label="IBM">
               <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" loading="lazy" decoding="async">
             </a>
@@ -1807,10 +1787,8 @@
           </div>
         </div>
 
-        <!-- Lane 2 — scrolls UP: NASA → NVIDIA → LinkedIn -->
         <div class="cert-lane">
           <div class="cert-track up">
-            <!-- Set 1 -->
             <a href="https://drive.google.com/file/d/1mLz41EF0Dy1IS2lzH1ATs4rXc2KPAM1g/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card" aria-label="NASA">
               <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/NASA_logo.svg" alt="NASA" loading="lazy" decoding="async">
             </a>
@@ -1820,7 +1798,6 @@
             <a href="https://www.linkedin.com/learning/certificates/5df7f15eeeb44072d1dacb12333dc42b4c306dbf2c496169dc9fcf3702186bba" target="_blank" rel="noopener noreferrer" class="cert-card" aria-label="LinkedIn">
               <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/LinkedIn_Logo_2013_%282%29.svg" alt="LinkedIn Learning" loading="lazy" decoding="async">
             </a>
-            <!-- Set 2 — duplicate for seamless infinite loop -->
             <a href="https://drive.google.com/file/d/1mLz41EF0Dy1IS2lzH1ATs4rXc2KPAM1g/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card" aria-label="NASA">
               <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/NASA_logo.svg" alt="NASA" loading="lazy" decoding="async">
             </a>
@@ -1846,7 +1823,7 @@
       </p>
       <div class="contact-meta">
         <span>Open to Work</span>
-        <span>Freelance & Collaboration</span>
+        <span>Freelance &amp; Collaboration</span>
       </div>
       <div class="contact-actions">
         <button onclick="contactMe()">Let's Connect</button>
@@ -2360,6 +2337,20 @@
     });
 
     const projectsDetails = {
+      "Trading Signal Automation System": {
+        tags: ["Chrome Extension", "Automation", "WebSocket"],
+        description: "A fully event-driven trading automation pipeline. A Chrome Extension (MV3) intercepts live WebSocket frames from a charting platform before DOM render and POSTs signal payloads to a local Python HTTP server, which instantly triggers AutoHotkey v2 for human-behavior-simulated execution on the trading platform.",
+        highlights: [
+          "Chrome MV3 extension intercepts live WebSocket frames before DOM render — minimum signal latency.",
+          "Event-driven pipeline: extension → Python HTTP server → AHK execution — no polling, zero idle lag.",
+          "AHK v2 randomizes input timing and action sequences to bypass broker bot-detection heuristics that ban API-based algo execution.",
+          "Clean JSON contract between browser, Python, and AHK — each layer independently replaceable."
+        ],
+        techStack: "Chrome Extension MV3, Python, AutoHotkey v2, WebSocket",
+        challenge: "Human-behavior simulation for anti-detection execution",
+        useCase: "Algorithmic trading automation that bypasses broker API restrictions by simulating real user interaction.",
+        sourceUrl: "#"
+      },
       "Secure Digital Election System": {
         tags: ["FastAPI", "Security", "Full-Stack Development"],
         description: "A comprehensive booth-level election management system. Features voter registration, BLO approval workflows, polling day operations, and conflict resolution mechanisms.",
@@ -2451,7 +2442,7 @@
         highlightsContainer.appendChild(li);
       });
 
-      if (id === 'Secure Digital Election System') {
+      if (id === 'Secure Digital Election System' || data.sourceUrl === '#') {
         modalSourceBtn.classList.add('source-unavailable');
         modalSourceBtn.disabled = true;
         modalSourceBtn.setAttribute('aria-disabled', 'true');
@@ -2486,9 +2477,8 @@
       if (e.key === 'Escape' && modalOverlay.classList.contains('active')) closeModalFunc();
     });
 
-    
     (function initMarquee() {
-      const SPEED = 0.5; 
+      const SPEED = 0.5;
 
       document.querySelectorAll('.cert-lane').forEach(lane => {
         const track = lane.querySelector('.cert-track');
@@ -2496,23 +2486,21 @@
 
         const isDown = track.classList.contains('down');
         const cards  = Array.from(track.children);
-        const half   = Math.floor(cards.length / 2); 
+        const half   = Math.floor(cards.length / 2);
 
-        
         function getSetHeight() {
           let h = 0;
           for (let i = 0; i < half; i++) {
             const r = cards[i].getBoundingClientRect();
             h += r.height;
           }
-          
           h += (half - 1) * 18;
           h += 18;
           return h;
         }
 
         let setH   = getSetHeight();
-        let pos    = isDown ? -setH : 0; 
+        let pos    = isDown ? -setH : 0;
         let paused = false;
         let raf    = null;
 
